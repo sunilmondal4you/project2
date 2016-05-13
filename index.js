@@ -5,32 +5,30 @@ var app = angular.module("myapp", []);
 
 app.controller("myctrl", function ($scope) {
 
-    $scope.arry = [];
-    $scope.table = function () {
-        $scope.person = {
-             username: $scope.username
-            , email: $scope.email
-            , mobile: $scope.mobile
-        };
-        $scope.arry.push($scope.person);
+    $scope.id = 1;
+    $scope.userlist = [];
+    $scope.user = {'id':$scope.id};
+    
+    $scope.saveuser = function() {
+        console.log($scope.user);
+
+        $scope.userlist.push($scope.user);
+
+        $scope.id = $scope.id + 1;
+        $scope.user = {'id' : $scope.id};
+    };
+    
+    $scope.edituser = function(userobj) {
+        $scope.editu = true;
+        $scope.user = userobj;
     };
 
+    $scope.udpateuser= function(index){
+        $scope.userlist.splice(index, 0, $scope.user);
+        $scope.editu = false;
 
-    $scope.edit = function ($index) {
-        var print = document.getElementById($index);
-        $scope.newarry = $scope.arry[$index];
-
-        $scope.username = $scope.newarry.username;
-        $scope.email = $scope.newarry.email;
-        $scope.mobile = $scope.newarry.mobile;
-
-    };
-
-    $scope.delete = function (index) {
-        $scope.arry.splice(index, 1);
-
-    };
-
+        $scope.user = {'id' : $scope.id};
+    }
 
 
 });
